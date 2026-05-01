@@ -12,5 +12,4 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('set/edit/<int:pk>/', edit_set, name='edit_set'),
     path('set/delete/<int:pk>/', delete_set, name='delete_set'),
-    path('init/', create_exercises),
 ]
