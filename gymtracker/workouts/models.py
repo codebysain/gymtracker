@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
 
 
 class Exercise(models.Model):
@@ -26,3 +27,10 @@ class Set(models.Model):
     def __str__(self):
         return f"{self.exercise} - {self.reps} reps"
 
+from .models import Exercise
+
+def create_exercises(request):
+    Exercise.objects.get_or_create(name="bench press")
+    Exercise.objects.get_or_create(name="squat")
+    Exercise.objects.get_or_create(name="deadlift")
+    return redirect('workout_list')
