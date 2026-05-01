@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .models import create_exercises
+
 from .views import workout_list, workout_create, workout_update, workout_delete, add_set, signup, edit_set, delete_set
 
 urlpatterns = [
