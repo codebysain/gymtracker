@@ -1,0 +1,11 @@
+<div style="max-width: 600px; margin: 40px auto; font-family: Arial; background:#f5f7fa; padding:20px; border-radius:12px;">
+
+<h1 style="text-align:center;">Edit Set</h1>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+
+</div>

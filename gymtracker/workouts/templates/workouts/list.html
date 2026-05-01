@@ -1,0 +1,68 @@
+<div style="max-width: 600px; margin: 50px auto; font-family: Arial; background:#f5f7fa; padding:20px; border-radius:12px;">
+
+  <h1 style="text-align:center; color:#2c7be5;">My Workouts</h1>
+
+  {% if user.is_authenticated %}
+    <p>Hi, {{ user.username }}</p>
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit" style="background:#2c7be5; color:white; border:none; padding:5px 10px; border-radius:5px;">
+        Logout
+      </button>
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'signup' %}" style="margin-left:10px;">Sign Up</a>
+  {% endif %}
+
+  <br><br>
+
+  <a href="{% url 'workout_create' %}" style="font-weight:bold;">➕ Add Workout</a>
+
+  <br><br>
+
+  <form method="get">
+    <input type="date" name="date">
+    <button type="submit">Filter</button>
+  </form>
+
+  <hr>
+
+  {% for workout in workouts %}
+    <div style="margin-bottom: 20px; padding:12px; border:1px solid #ddd; border-radius:10px; background:white;">
+
+      <strong style="font-size:20px;">{{ workout.date }}</strong>
+
+      <div style="margin-top:8px;">
+        <a href="{% url 'workout_update' workout.id %}">Edit date</a>
+
+        <a href="{% url 'add_set' workout.id %}" style="margin-left:10px;">Add Set</a>
+
+        <form action="{% url 'workout_delete' workout.id %}" method="post" style="display:inline; margin-left:10px;">
+          {% csrf_token %}
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+
+      <!-- SETS -->
+      {% for set in workout.sets.all %}
+        <div style="margin-left:15px; margin-top:6px;">
+          • {{ set.exercise.name }} — {{ set.reps }} reps — {{ set.weight }} kg
+
+          <a href="{% url 'edit_set' set.id %}" style="margin-left:10px;">Edit</a>
+
+          <form action="{% url 'delete_set' set.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+      {% empty %}
+        <div style="margin-left:15px;">No sets yet</div>
+      {% endfor %}
+
+    </div>
+  {% empty %}
+    <p>No workouts yet</p>
+  {% endfor %}
+
+</div>

@@ -1,0 +1,1 @@
+gunicorn gymtracker.wsgi:application
