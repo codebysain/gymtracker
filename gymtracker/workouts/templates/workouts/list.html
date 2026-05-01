@@ -45,20 +45,20 @@
       </div>
 
       <!-- SETS -->
-      {% for set in workout.sets.all %}
-        <div style="margin-left:15px; margin-top:6px;">
-          • {{ set.exercise.name }} — {{ set.reps }} reps — {{ set.weight }} kg
+     {% for set in workout.sets.all %}
+  <div style="margin-left:15px; margin-top:6px;">
+    • {{ set.exercise }} — {{ set.reps }} reps — {{ set.weight }} kg
 
-          <a href="{% url 'edit_set' set.id %}" style="margin-left:10px;">Edit</a>
+    <a href="{% url 'edit_set' set.id %}" style="margin-left:10px;">Edit</a>
 
-          <form action="{% url 'delete_set' set.id %}" method="post" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit">Delete</button>
-          </form>
-        </div>
-      {% empty %}
-        <div style="margin-left:15px;">No sets yet</div>
-      {% endfor %}
+    <form action="{% url 'delete_set' set.id %}" method="post" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit">Delete</button>
+    </form>
+  </div>
+{% empty %}
+  <div style="margin-left:15px;">No sets yet</div>
+{% endfor %}
 
     </div>
   {% empty %}
